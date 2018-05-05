@@ -1,5 +1,6 @@
 
 public class ApartmentFinder {
+		
 	public ApartmentFinder() {
 		
 		

@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -26,6 +27,8 @@ public class Search_fx extends BorderPane implements PaneState{
 	private ChoiceBox<Integer> numOfDoubleRoom_box;
 	private Button confirm;
 	
+	private Label bathroomnumber_label, numofres_label, numofdoubleroom_label;
+	
 	public Search_fx(ApplicationUI _frame) {
 		ArrayList<Integer> aptids = new ArrayList<Integer>();
 		
@@ -37,6 +40,10 @@ public class Search_fx extends BorderPane implements PaneState{
 		numOfRes_box = new ChoiceBox<Integer>();
 		numOfDoubleRoom_box = new ChoiceBox<Integer>();
 		confirm = new Button("Search");
+		
+		bathroomnumber_label = new Label("Number of Bathroom");
+		numofres_label = new Label("Number of Residents");
+		numofdoubleroom_label = new Label("Number of Double Room");
 		
 		frame = _frame;
 //		Database.getIds(aptids);
@@ -51,7 +58,12 @@ public class Search_fx extends BorderPane implements PaneState{
 		VBox vbox = new VBox();
 		HBox condition1 = new HBox();
 		VBox condition2 = new VBox();
-		condition2.getChildren().add(building);
+		HBox bathroom_box = new HBox();
+		HBox resident_box = new HBox();
+		HBox double_box = new HBox();
+		
+		vbox.getChildren().add(building);
+		vbox.getChildren().add(new Separator());
 		condition2.getChildren().add(new Separator());
 		condition1.getChildren().add(lofted);
 		condition1.getChildren().add(new Separator());
@@ -61,13 +73,19 @@ public class Search_fx extends BorderPane implements PaneState{
 
 		condition1.getChildren().add(separateBathroom);
 
-		condition2.getChildren().add(bathroomNumber_box);
+		bathroom_box.getChildren().add(bathroomNumber_box);
+		bathroom_box.getChildren().add(bathroomnumber_label);
+		condition2.getChildren().add(bathroom_box);
 		condition2.getChildren().add(new Separator());
 
-		condition2.getChildren().add(numOfRes_box);
+		resident_box.getChildren().add(numOfRes_box);
+		resident_box.getChildren().add(numofres_label);
+		condition2.getChildren().add(resident_box);
 		condition2.getChildren().add(new Separator());
 
-		condition2.getChildren().add(numOfDoubleRoom_box);
+		double_box.getChildren().add(numOfDoubleRoom_box);
+		double_box.getChildren().add(numofdoubleroom_label);
+		condition2.getChildren().add(double_box);
 
 		vbox.getChildren().add(condition1);
 		vbox.getChildren().add(new Separator());
@@ -92,7 +110,7 @@ public class Search_fx extends BorderPane implements PaneState{
 		goldcard.setIndeterminate(true);
 		separateBathroom.setIndeterminate(true);
 		
-		
+		BorderPane border = this;
 		
 		confirm.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -104,6 +122,7 @@ public class Search_fx extends BorderPane implements PaneState{
 				int res_number = numOfRes_box.getValue();
 				int doubleRoom_number = numOfDoubleRoom_box.getValue();
 				Database.findApartment(lofted_result, gold_result, bathroom_result, bathroom_number, res_number, doubleRoom_number);
+				border.setCenter(new Result_fx());
 			}
 		});
 	}

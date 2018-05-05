@@ -18,7 +18,7 @@ public class ApplicationUI extends Application{
 	private StackPane root;
 	private Scene scene;
 	
-	public static final int WIDTH = 1000;
+	public static final int WIDTH = 700;
 	public static final int HEIGHT = 500;
 	
 
@@ -71,7 +71,7 @@ public class ApplicationUI extends Application{
 	
 	
 	public static void main(String[] args) {
-		
+		Database.createAndUseDatabase();
 		launch(args);
 		
 	}

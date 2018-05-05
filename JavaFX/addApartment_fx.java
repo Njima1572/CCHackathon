@@ -107,11 +107,19 @@ public class addApartment_fx extends BorderPane implements PaneState{
 	}
 	
 	public void initializeButtons() {
+		
+		BorderPane border = this;
+		
 		confirm.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				String building = building_name.getText();
+				int building_id = Database.convertBuildingToInt(building);
+				String aptid_string = building_id + roomnumber.getText();
+				int aptid = Integer.parseInt(aptid_string);
+				Database.createAndUseDatabase();
 				Database.addApartment(aptid, lofted.isSelected(), goldcard.isSelected(), separateBathroom.isSelected(), bathroomNumber_box.getValue(), numOfRes_box.getValue(), numOfDoubleRoom_box.getValue());
-				
+				border.setCenter(new addApartment_fx(frame));
 			}
 		});
 	}
